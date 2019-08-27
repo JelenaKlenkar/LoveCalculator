@@ -5,6 +5,9 @@
  */
 package edunova.view;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +16,7 @@ import java.util.Map;
  * @author Jelena
  */
 public class LoveCalculator extends javax.swing.JFrame {
-     
+
     /**
      * Creates new form LoveCalculator
      */
@@ -108,66 +111,69 @@ public class LoveCalculator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoveActionPerformed
-       String She=txtEnterShe.getText().toLowerCase();
-       String He=txtEnterHe.getText().toLowerCase();
-       String calculation = countChars(She, He);
-       lblResult.setText(shortenNumber(calculation) + "%");
-       
-       /* String combinedString=She+He;
-        
-        HashMap<Character, Integer> charCountMap = new HashMap<Character, Integer>();            
-             char[] strArray = combinedString.toCharArray(); 
-             
-             for (char c : strArray) {
-                  if (charCountMap.containsKey(c)) { 
-                      charCountMap.put(c, charCountMap.get(c) + 1); 
-                  }else{
-                       charCountMap.put(c, 1); 
-                  }
-                  
-            
+        String She = txtEnterShe.getText().toLowerCase();
+        String He = txtEnterHe.getText().toLowerCase();
+        String calculation = countChars(She, He);
+        char[] charArray = calculation.toCharArray();
+        int[] intArray = new int[charArray.length];
+        for (int i = 0; i < charArray.length; i++) {
+            intArray[i] = Integer.parseInt("" + charArray[i]);
         }
-           for (Map.Entry entry : charCountMap.entrySet()) { 
-         
-            
-           }*/
-        
-       
+        List<int[]> asList=Arrays.asList(intArray);
+
+        List<Integer> intList = new ArrayList<Integer>();
+        for (int i : intArray) {
+            intList.add(i);
+
+        }
+        System.out.println(intList);
+        List<Integer> list = intList;
+        while (list.size() > 2) {
+            List<Integer> temp = new ArrayList<>();
+            for (int i = 0; i < list.size() - 1; i = i + 2) {
+                int result = list.get(i) + list.get(i + 1);
+                if (result > 9) {
+                    temp.add(result / 10);
+                }
+                temp.add(result % 10);
+            }
+            if (list.size() % 2 != 0) {
+                temp.add(list.get(list.size() - 1));
+            }
+            list = temp;
+        }
+        String result = list.get(0).toString() + list.get(1).toString();
+        System.out.println(result);
+        lblResult.setText(result + "%");
+
+
     }//GEN-LAST:event_btnLoveActionPerformed
-	String countChars(String She, String He) {
-		String combinedString = She + He;
+    String countChars(String She, String He) {
+        String combinedString = She + He;
 
-		String strAllChars = "";
-		String strCount = "";
-		for (char c1 : combinedString.toCharArray()) {
-			if (strAllChars.indexOf(c1) < 0) {
-				int count = 0;
-				for (char c2 : combinedString.toCharArray()) {
-					if (c1 == c2) {
-						count++;
-					}
-				}
-				strAllChars = strAllChars + c1;
-				strCount = strCount + String.valueOf(count);
-			}
-		}
+        String strAllChars = "";
+        String strCount = "";
+        char tempArray[] = combinedString.toCharArray();
+        Arrays.sort(tempArray);
+        String sorted = new String(tempArray);
+        System.out.println(sorted);
+        for (char c1 : sorted.toCharArray()) {
+            if (strAllChars.indexOf(c1) < 0) {
+                int count = 0;
+                for (char c2 : sorted.toCharArray()) {
+                    if (c1 == c2) {
+                        count++;
+                    }
+                }
+                strAllChars = strAllChars + c1;
+                strCount = strCount + String.valueOf(count);
+            }
+        }
+        System.out.println(strCount);
 
-		return strCount;
-	}
-        
-	String shortenNumber(String str) {
-		String shortenString = "";
-		if (str.length() >= 2) {
-			int int1 = Integer.parseInt(String.valueOf(str.toCharArray() [0]));
-			int int2 = Integer.parseInt(String.valueOf(str.toCharArray()[1]));
-			shortenString = String.valueOf(int1 + int2) + shortenNumber(str.substring(2, 4));
-		} else {
-			return str;
-		}
+        return strCount;
+    }
 
-		return shortenString;
-	}
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLove;
