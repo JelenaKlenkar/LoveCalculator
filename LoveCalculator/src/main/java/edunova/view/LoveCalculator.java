@@ -8,8 +8,8 @@ package edunova.view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+
+
 
 /**
  *
@@ -119,7 +119,7 @@ public class LoveCalculator extends javax.swing.JFrame {
         for (int i = 0; i < charArray.length; i++) {
             intArray[i] = Integer.parseInt("" + charArray[i]);
         }
-        List<int[]> asList=Arrays.asList(intArray);
+        List<int[]> asList = Arrays.asList(intArray);
 
         List<Integer> intList = new ArrayList<Integer>();
         for (int i : intArray) {
@@ -134,47 +134,47 @@ public class LoveCalculator extends javax.swing.JFrame {
                 int result = list.get(i) + list.get(i + 1);
                 if (result > 9) {
                     temp.add(result / 10);
+                } else {
+                    temp.add(result);
                 }
-                temp.add(result % 10);
+                }
+                if (list.size() % 2 != 0) {
+                    temp.add(list.get(list.size() - 1));
+                }
+                list = temp;
             }
-            if (list.size() % 2 != 0) {
-                temp.add(list.get(list.size() - 1));
-            }
-            list = temp;
-        }
-        String result = list.get(0).toString() + list.get(1).toString();
-        System.out.println(result);
-        lblResult.setText(result + "%");
+            String result = list.get(0).toString() + list.get(1).toString();
+            System.out.println(result);
+            lblResult.setText(result + "%");
 
 
     }//GEN-LAST:event_btnLoveActionPerformed
-    String countChars(String She, String He) {
+        String countChars
+        (String She, String He) {
         String combinedString = She + He;
 
-        String strAllChars = "";
-        String strCount = "";
-        char tempArray[] = combinedString.toCharArray();
-        Arrays.sort(tempArray);
-        String sorted = new String(tempArray);
-        System.out.println(sorted);
-        for (char c1 : sorted.toCharArray()) {
-            if (strAllChars.indexOf(c1) < 0) {
-                int count = 0;
-                for (char c2 : sorted.toCharArray()) {
-                    if (c1 == c2) {
-                        count++;
+            String strAllChars = "";
+            String strCount = "";
+            char tempArray[] = combinedString.toCharArray();
+            Arrays.sort(tempArray);
+            String sorted = new String(tempArray);
+            System.out.println(sorted);
+            for (char c1 : sorted.toCharArray()) {
+                if (strAllChars.indexOf(c1) < 0) {
+                    int count = 0;
+                    for (char c2 : sorted.toCharArray()) {
+                        if (c1 == c2) {
+                            count++;
+                        }
                     }
+                    strAllChars = strAllChars + c1;
+                    strCount = strCount + String.valueOf(count);
                 }
-                strAllChars = strAllChars + c1;
-                strCount = strCount + String.valueOf(count);
             }
+            System.out.println(strCount);
+
+            return strCount;
         }
-        System.out.println(strCount);
-
-        return strCount;
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLove;
     private javax.swing.JLabel lblHe;
